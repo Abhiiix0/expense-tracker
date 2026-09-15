@@ -4,16 +4,37 @@ const expenseSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true
+    required: true,
+    index:true,
   },
-  category: String,
-  description: String,
+  category: {
+    type: String,
+    enum: [
+        "Food",
+        "Transport",
+        "Bills",
+        "Shopping",
+        "Health",
+        "Entertainment",
+        "Other",
+    ],
+    required: true,
+  },
   amount: {
     type: Number,
-    required: true
+    required: true,
+    min: 0,
   },
-  expenseName: String,
-  date: Date
+  type: {
+      type: String,
+      enum: ["expense", "income"],
+      required: true,
+  },
+  note: String,
+  date: {
+      type: Date,
+      required: true,
+  },
 }, {
   timestamps: true
 });

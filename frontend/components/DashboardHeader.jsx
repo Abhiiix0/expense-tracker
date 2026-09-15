@@ -15,20 +15,7 @@ const NAV = [
   // { label: "Categories", href: "#" },
 ];
 
-function MenuItem({ children }) {
-  return (
-    <button
-      type="button"
-      role="menuitem"
-      onClick={() => console.log(`${children} clicked`)}
-      className="block w-full px-4 py-2.5 text-left text-ink hover:bg-field/60"
-    >
-      {children}
-    </button>
-  );
-}
-
-export default function DashboardHeader() {
+export default function DashboardHeader({ onAddClick }) {
   const route = useRouter()
   const { user, setUser } = useAuth()
   const logout = async () => {
@@ -57,11 +44,11 @@ export default function DashboardHeader() {
       document.removeEventListener("keydown", onKey);
     };
   }, [menuOpen]);
-
+// console.log(user)
   return (
     <header className="sticky top-0 z-20 border-b border-margin/70 bg-paper">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-6 px-5 py-3 sm:px-8">
-        <Link href="/dashboard" className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-2.5">
           <TallyMark />
           <span className="text-[16px] font-bold tracking-[-0.01em]">Tally</span>
         </Link>
@@ -87,7 +74,7 @@ export default function DashboardHeader() {
         <div className="ml-auto flex items-center gap-3">
           <button
             type="button"
-            onClick={() => console.log("Add expense clicked")}
+            onClick={onAddClick}
             className="inline-flex items-center gap-1.5 rounded-[3px] bg-margin px-3 py-1.5 text-[13px] font-bold text-white transition-colors hover:bg-margin-deep focus-visible:ring-2 focus-visible:ring-margin focus-visible:ring-offset-2 focus-visible:ring-offset-paper focus-visible:outline-none"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
@@ -110,7 +97,16 @@ export default function DashboardHeader() {
               aria-expanded={menuOpen}
               className="flex h-8 w-8 items-center justify-center rounded-full border border-rule-strong bg-field text-[12px] font-bold tracking-tight text-ink transition-colors hover:border-ink focus-visible:ring-2 focus-visible:ring-margin focus-visible:ring-offset-2 focus-visible:ring-offset-paper focus-visible:outline-none"
             >
-              AL
+              {user.profileImg ? (
+                <img
+                  src={user.profileImg}
+                  alt={user.name}
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full rounded-full object-cover"
+                />
+              ) : (
+                user.name?.slice(0, 2).toUpperCase()
+              )}
               <span className="sr-only">Open account menu</span>
             </button>
 
@@ -123,9 +119,6 @@ export default function DashboardHeader() {
                   <p className="font-semibold text-ink">{user.name}</p>
                   <p className="text-[12px] text-ink-soft">{user.email}</p>
                 </div>
-                <MenuItem>Account</MenuItem>
-                {/* <MenuItem>Settings</MenuItem> */}
-                <MenuItem>Export CSV</MenuItem>
                 <div className="border-t w border-rule">
                   <button
                     onClick={logout}

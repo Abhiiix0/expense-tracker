@@ -35,15 +35,15 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (formData) => {
-    console.log("Log in form submitted:", formData);
+    // console.log("Log in form submitted:", formData);
     try {
-      const data = await api("/api/auth/login", {
+      await api("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      console.log("res", data);
+      // console.log("res", data);
       toast.success("Login successfully");
-      route.push("/");
+      route.push("/dashboard");
     } catch (error) {
       toast.error(error.message || "Something went wrong");
     }
@@ -130,16 +130,16 @@ export default function LoginForm() {
               </Field>
 
               <div className="flex items-center justify-between border-b border-rule px-4 py-3">
-                {/* <label className="flex items-center gap-2 text-[13px] text-ink-soft">
+                <label className="flex items-center gap-2 text-[13px] text-ink-soft">
                 <input
                   type="checkbox"
                   className="h-3.5 w-3.5 accent-margin"
-                  {...register("remember")}
+                  {...register("isRemember")}
                 />
                 Remember this device
-              </label> */}
+              </label>
                 <Link
-                  href="/login"
+                  href="/forgot-password"
                   className="text-[13px] text-ink-soft underline underline-offset-2 hover:text-ink"
                 >
                   Forgot password?

@@ -1,14 +1,26 @@
 import type { CSSProperties } from "react";
+import LandingAuthLinks from "./LandingAuthLinks";
 
-type CatKey = "rent" | "groceries" | "transit" | "dining" | "subs" | "misc";
+type CatKey =
+  | "Food"
+  | "Transport"
+  | "Bills"
+  | "Shopping"
+  | "Health"
+  | "Entertainment"
+  | "Other";
 
 const CATEGORIES: Record<CatKey, { label: string; color: string }> = {
-  rent: { label: "Rent", color: "var(--color-cat-rent)" },
-  groceries: { label: "Groceries", color: "var(--color-cat-groceries)" },
-  transit: { label: "Transit", color: "var(--color-cat-transit)" },
-  dining: { label: "Eating out", color: "var(--color-cat-dining)" },
-  subs: { label: "Subscriptions", color: "var(--color-cat-subs)" },
-  misc: { label: "Other", color: "var(--color-cat-misc)" },
+  Food: { label: "Food", color: "var(--color-cat-food)" },
+  Transport: { label: "Transport", color: "var(--color-cat-transport)" },
+  Bills: { label: "Bills", color: "var(--color-cat-bills)" },
+  Shopping: { label: "Shopping", color: "var(--color-cat-shopping)" },
+  Health: { label: "Health", color: "var(--color-cat-health)" },
+  Entertainment: {
+    label: "Entertainment",
+    color: "var(--color-cat-entertainment)",
+  },
+  Other: { label: "Other", color: "var(--color-cat-other)" },
 };
 
 type Entry = {
@@ -30,54 +42,54 @@ const LEDGER: Entry[] = [
   {
     date: "Mar 2",
     desc: "Rye House coffee",
-    cat: "dining",
+    cat: "Food",
     amount: 4.75,
     balance: 3195.25,
   },
   {
     date: "Mar 3",
     desc: "Greenmarket, week's groceries",
-    cat: "groceries",
+    cat: "Shopping",
     amount: 82.1,
     balance: 3113.15,
   },
   {
     date: "Mar 4",
     desc: "Transit card top-up",
-    cat: "transit",
+    cat: "Transport",
     amount: 33,
     balance: 3080.15,
   },
   {
     date: "Mar 6",
     desc: "Figma, monthly",
-    cat: "subs",
+    cat: "Entertainment",
     amount: 15,
     balance: 3065.15,
   },
   {
     date: "Mar 7",
     desc: "Pharmacy",
-    cat: "misc",
+    cat: "Health",
     amount: 21.4,
     balance: 3043.75,
   },
   {
     date: "Mar 8",
     desc: "Dinner at Lupa",
-    cat: "dining",
+    cat: "Food",
     amount: 58,
     balance: 2985.75,
   },
 ];
 
 const BREAKDOWN: { key: CatKey; amount: number }[] = [
-  { key: "rent", amount: 1350 },
-  { key: "groceries", amount: 520 },
-  { key: "misc", amount: 419 },
-  { key: "dining", amount: 410 },
-  { key: "transit", amount: 145 },
-  { key: "subs", amount: 96 },
+  { key: "Bills", amount: 1350 },
+  { key: "Shopping", amount: 520 },
+  { key: "Other", amount: 419 },
+  { key: "Food", amount: 410 },
+  { key: "Transport", amount: 145 },
+  { key: "Entertainment", amount: 96 },
 ];
 const MONTH_TOTAL = 2940;
 
@@ -105,20 +117,16 @@ const INSIDE = [
     def: "Every entry carries the balance forward in the next column, the way a paper checkbook register does.",
   },
   {
-    term: "Categories that stay put",
-    def: "The category list is yours to rename, merge, or retire. Old entries keep the name they were filed under.",
+    term: "Income and expenses together",
+    def: "Log what comes in alongside what goes out, so the balance reflects the whole picture, not just spending.",
   },
   {
-    term: "A month you can close",
-    def: "Seal a month once it is done and it stops changing. What is left is a clean record to look back on.",
+    term: "Seven categories, ready to go",
+    def: "Food, transport, bills, shopping, health, entertainment, other. File an entry in a keystroke, no setup first.",
   },
   {
-    term: "Plain-text export",
-    def: "Pull any date range as CSV. The ledger is yours and it leaves in a format anything can open.",
-  },
-  {
-    term: "Logs without signal",
-    def: "Add expenses on the subway or a plane. Tally sorts the order once you are back online.",
+    term: "Edit or delete anytime",
+    def: "Fixed a typo or logged the wrong amount? Change or remove any entry, any time.",
   },
 ];
 
@@ -192,10 +200,7 @@ const LandingPage = () => {
             >
               What&rsquo;s inside
             </a>
-            <a href="/login" className="text-ink-soft hover:text-ink">
-              Log in
-            </a>
-            <StartButton label="Sign up" className="px-3.5 py-2" />
+            <LandingAuthLinks />
           </nav>
         </div>
       </header>
@@ -211,9 +216,10 @@ const LandingPage = () => {
             Keep an honest account of where your money goes.
           </h1>
           <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.6] text-ink-soft">
-            Tally is a plain expense ledger &mdash; no dashboards, no budgets to
-            configure. Write down what you spend in a few seconds, file it under
-            a category, and read the month back like a statement.
+            Tally is a plain expense ledger &mdash; no budgets to configure, no
+            bank connection required. Write down what you spend in a few
+            seconds, file it under a category, and read the month back like a
+            statement.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <StartButton />
@@ -353,7 +359,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className="flex items-baseline justify-between gap-4 border-t border-rule-strong px-4 py-3 text-[13px] text-ink-soft">
-                <span>Sealed when March ends</span>
+                <span>7 entries so far</span>
                 <span className="figure">
                   Closing balance{" "}
                   <span className="ml-2 text-[15px] font-semibold text-ink">
@@ -503,7 +509,7 @@ const LandingPage = () => {
               <StartButton className="px-5 py-3 text-[15px]" />
             </div>
             <p className="mt-4 text-[13px] text-ink-soft">
-              Free while in beta. Export everything whenever you like.
+              Free while in beta.
             </p>
           </div>
         </section>

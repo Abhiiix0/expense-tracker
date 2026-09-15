@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light dark;
+
   --background: #ffffff;
   --foreground: #171717;
 
@@ -15,12 +17,13 @@
   --margin-deep: #892a20;
   --credit: #1e6b54;
 
-  --cat-rent: #2b3440;
-  --cat-groceries: #1e6b54;
-  --cat-transit: #3f6591;
-  --cat-dining: #a9682f;
-  --cat-subs: #6f5691;
-  --cat-misc: #8a8f98;
+  --cat-bills: #2b3440;
+  --cat-shopping: #1e6b54;
+  --cat-transport: #3f6591;
+  --cat-food: #a9682f;
+  --cat-entertainment: #2c6e73;
+  --cat-health: #6f5691;
+  --cat-other: #8a8f98;
 }
 
 @theme inline {
@@ -40,12 +43,13 @@
   --color-margin-deep: var(--margin-deep);
   --color-credit: var(--credit);
 
-  --color-cat-rent: var(--cat-rent);
-  --color-cat-groceries: var(--cat-groceries);
-  --color-cat-transit: var(--cat-transit);
-  --color-cat-dining: var(--cat-dining);
-  --color-cat-subs: var(--cat-subs);
-  --color-cat-misc: var(--cat-misc);
+  --color-cat-bills: var(--cat-bills);
+  --color-cat-shopping: var(--cat-shopping);
+  --color-cat-transport: var(--cat-transport);
+  --color-cat-food: var(--cat-food);
+  --color-cat-entertainment: var(--cat-entertainment);
+  --color-cat-health: var(--cat-health);
+  --color-cat-other: var(--cat-other);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,12 +67,13 @@
     --margin-deep: #a83a2e;
     --credit: #58b394;
 
-    --cat-rent: #c9cfd8;
-    --cat-groceries: #58b394;
-    --cat-transit: #7ea6d4;
-    --cat-dining: #d09a5f;
-    --cat-subs: #a98fc9;
-    --cat-misc: #9aa0a8;
+    --cat-bills: #c9cfd8;
+    --cat-shopping: #58b394;
+    --cat-transport: #7ea6d4;
+    --cat-food: #d09a5f;
+    --cat-entertainment: #6fb8bd;
+    --cat-health: #a98fc9;
+    --cat-other: #9aa0a8;
   }
 }
 

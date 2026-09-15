@@ -34,13 +34,13 @@ export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const route = useRouter();
   const onSubmit = async (formData) => {
-    console.log(formData);
+    // console.log(formData);
     try {
-      const data = await api("/api/auth/register", {
+      await api("/api/auth/register", {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      console.log("res", data);
+      // console.log("res", data);
       toast.success("Account created successfully");
       route.push("/");
       reset();
